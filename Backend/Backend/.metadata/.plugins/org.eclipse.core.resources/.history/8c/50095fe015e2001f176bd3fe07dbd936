@@ -1,0 +1,16 @@
+package com.app.service;
+
+import com.app.entities.Market;
+
+import java.util.List;
+
+public interface MarketService 
+{
+
+	List<Market> getAllMarket();
+
+	String addMarket();
+
+    
+
+}

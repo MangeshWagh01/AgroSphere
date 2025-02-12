@@ -1,0 +1,26 @@
+package com.app.dto;
+
+import java.time.LocalDate;
+
+import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import com.app.entities.UserRole;
+
+public class FarmerListDto 
+{
+
+	private String firstName;
+	private String lastName;
+	private String email;
+	private String address;
+	private String contactNo;	
+	private String role;
+	private LocalDate created_on;
+	private  LocalDate updated_on;
+	
+}

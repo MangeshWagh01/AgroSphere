@@ -1,0 +1,14 @@
+package com.app.dao;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import com.app.dto.MarketProductDto;
+
+public interface MarketProductDao extends JpaRepository<MarketProductDto, Long> {
+
+	
+    @Query("SELECT mp.name, mp.category FROM MarketProduct mp WHERE mp.id = :id")
+ 		List<Object[]> fetchMarketProductDetails();
+	
+}

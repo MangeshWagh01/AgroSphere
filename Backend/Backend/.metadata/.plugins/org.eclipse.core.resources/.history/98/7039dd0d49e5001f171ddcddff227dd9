@@ -1,0 +1,14 @@
+package com.app.dto;
+
+import com.app.entities.UserRole;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
+public class AppointmentDto {
+	private String status;
+}

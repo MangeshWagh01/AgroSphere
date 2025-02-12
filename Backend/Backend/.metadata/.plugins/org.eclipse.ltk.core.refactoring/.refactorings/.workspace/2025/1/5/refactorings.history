@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename Java project &apos;jwt_https&apos; to &apos;AgroSphere&apos;&#x0D;&#x0A;- Original element: &apos;jwt_https&apos;&#x0D;&#x0A;- Renamed element: &apos;jwt_https&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename Java project &apos;jwt_https&apos;" flags="7" id="org.eclipse.jdt.ui.rename.java.project" input="=jwt_https" name="AgroSphere" references="true" stamp="1738132007980" version="1.0"/>
+</session>

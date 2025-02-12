@@ -1,0 +1,21 @@
+package com.app.service;
+
+import com.app.entities.Market;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface MarketService 
+{
+
+	List<Market> getAllMarket();
+
+	String addMarket(Market obj);
+
+	String deleteMarket(Long id);
+
+	Market editMarket(Long id, Market obj);
+
+    
+
+}

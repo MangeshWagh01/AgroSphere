@@ -1,0 +1,191 @@
+package com.app.service;
+
+import java.time.LocalDate;
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.app.dao.AppointmentEntityDao;
+import com.app.dao.MarketDao;
+import com.app.dao.MarketRateDao;
+import com.app.dao.OrderDao;
+import com.app.dao.ProductEntityDao;
+import com.app.dao.UserEntityDao;
+import com.app.entities.Appointment;
+import com.app.entities.Market;
+import com.app.entities.MarketRate;
+import com.app.entities.Order;
+import com.app.entities.Product;
+import com.app.entities.UserEntity;
+
+@Service
+@Transactional
+
+public class OrderServiceImpl implements OrderService
+{
+	@Autowired
+	OrderDao orderDao;
+	
+	@Autowired
+	MarketDao marketDao;
+	
+	@Autowired
+	ProductEntityDao productDao;
+	
+	@Autowired
+	UserEntityDao userDao;
+	
+	@Autowired
+	AppointmentEntityDao appointmentDao;
+	
+	@Autowired
+	MarketRateDao marketRateDao;
+	
+	@Override
+	public Order createOrder(Long buyerId, Long prodId , Long marketId, Long appointmentId ,Long quantity , Double rate)
+	{
+		
+		Appointment appointment = appointmentDao.findById(appointmentId).orElseThrow(()-> new RuntimeException("Appointment Not Found"));
+		
+//		if(!appointment.getDate().isEqual(LocalDate.now()))
+//		{
+//			throw new RuntimeException("The Appointment date Must be todays date.");
+//		}
+		
+		UserEntity buyer = userDao.findById(buyerId).orElseThrow(()-> new RuntimeException("Buyer Not Found"));
+		
+		Product product = productDao.findById(prodId).orElseThrow(()-> new RuntimeException("Product Not Found"));
+		
+		Market productMarket = product.getMarket();
+		
+		    
+        // Check if the appointment's market matches the product's market
+
+		    if (!appointment.getMarket().equals(productMarket)) {
+	            throw new RuntimeException("The Appointment's market does not match the Product's market");
+	        }
+		
+		 
+		 
+		 // Check if the appointment's product matches the product being purchased
+	        if (!appointment.getProduct().equals(product)) {
+	            throw new RuntimeException("The Appointment's product does not match the Product being purchased");
+	        }
+		//Market market = marketDao.findById(marketId).orElseThrow(()-> new RuntimeException("Market Id not Found"));
+		
+//		if(product.getProd_qty() < quantity)
+//		{
+//			throw new RuntimeException("Insuffucuent Prduct Quantity");
+//			
+//		}
+//		
+		
+		
+		
+//		UserEntity farmer = product.getMarket().getAppointments()
+//							.stream()
+//							.map(Appointment::getFarmer)
+//							.findFirst()
+//							.orElseThrow(() -> new RuntimeException("Farmer Not Found"));
+//		
+		
+		// Update product quantity after the purchase
+//		product.setProd_qty(product.getProd_qty()-quantity);
+//		productDao.save(product);
+		
+		
+		Order order = new Order();
+		order.setBuyer(buyer);
+		order.setProduct(product);
+		order.setMarket(appointment.getMarket());
+		order.setFarmer(appointment.getFarmer());
+		order.setRate(rate);
+		order.setAppointment(appointment);
+		order.setQuantity(quantity);
+		order.setTotalAmount(rate*quantity); // Calculate total amount
+		
+		
+		return orderDao.save(order);
+		
+
+		
+	}
+	
+
+	@Override
+	public List<Order> getAllOrders() 
+	{
+		return orderDao.findAll();
+	}
+
+
+	@Override
+	public List<Order> getByBuyerId(Long id) {
+//		ArrayList<Order>list = (ArrayList<Order>) orderDao.findByBuyer(id);
+//		for(Order num : list)
+//		{
+//			System.out.println(num);
+//		}
+		UserEntity buyer= userDao.findById(id).get();		
+		return orderDao.findByBuyer(buyer);
+	}
+	
+	@Override
+	 public Order createOrder(Long buyerId, Long prodId, Long marketId, Long appointmentId, Long quantity, Double rate) {
+	     Appointment appointment = appointmentDao.findById(appointmentId).orElseThrow(() -> new RuntimeException("Appointment Not Found"));
+	     UserEntity buyer = userDao.findById(buyerId).orElseThrow(() -> new RuntimeException("Buyer Not Found"));
+	     Product product = productDao.findById(prodId).orElseThrow(() -> new RuntimeException("Product Not Found"));
+
+	     Market productMarket = product.getMarket();
+
+	     if (!appointment.getMarket().equals(productMarket)) {
+	         throw new RuntimeException("The Appointment's market does not match the Product's market");
+	     }
+	     if (!appointment.getProduct().equals(product)) {
+	         throw new RuntimeException("The Appointment's product does not match the Product being purchased");
+	     }
+
+	     Order order = new Order();
+	     order.setBuyer(buyer);
+	     order.setProduct(product);
+	     order.setMarket(appointment.getMarket());
+	     order.setFarmer(appointment.getFarmer());
+	     order.setRate(rate);
+	     order.setAppointment(appointment);
+	     order.setQuantity(quantity);
+	     order.setTotalAmount(rate * quantity);
+
+	     orderDao.save(order);
+
+	     LocalDate today = LocalDate.now();
+
+	     // Fetch existing rates for the market-product combination on today's date
+	     List<Double> rates = marketRateDao.findRatesByMarketProductAndDate(marketId, prodId, today);
+	     rates.add(rate);
+
+	     // Calculate max, min, and average rates
+	     double maxRate = rates.stream().mapToDouble(Double::doubleValue).max().orElse(0);
+	     double minRate = rates.stream().mapToDouble(Double::doubleValue).min().orElse(0);
+	     double avgRate = rates.stream().mapToDouble(Double::doubleValue).average().orElse(0);
+
+	     // Update or create today's market rate entry
+	     MarketRate marketRate = marketRateDao.findByMarketIdAndProductIdAndCreatedOn(marketId, prodId, today)
+	         .orElse(new MarketRate());
+
+	     marketRate.setMarket(productMarket);
+	     marketRate.setProduct(product);
+	     marketRate.setMaxRate(maxRate);
+	     marketRate.setMinRate(minRate);
+	     marketRate.setAvgRate(avgRate);
+	     marketRate.setRate(rate);
+	     marketRate.setCreatedOn(today);
+
+	     marketRateDao.save(marketRate);
+
+	     return order;
+	 }
+
+}

@@ -1,0 +1,32 @@
+package com.app.entities;
+
+import lombok.*;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import javax.persistence.*;
+import java.time.LocalDate;
+
+@Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+
+
+public class MarketRate extends  BaseEntity{
+
+    private  Double Rate;
+
+    @ManyToOne
+    @JoinColumn(name = "market_id")
+
+    private  Market market;
+
+    @OneToOne
+    private  Product product;
+
+    @UpdateTimestamp
+    private LocalDate update_on;
+
+}

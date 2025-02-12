@@ -1,0 +1,50 @@
+package com.app.service;
+
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.app.dao.MarketRateDao;
+import com.app.entities.MarketRate;
+
+
+@Service
+@Transactional
+
+public class MarketRateServiceImpl implements MarketRateService
+{
+	@Autowired
+	MarketRateDao marketRateDao;
+
+	@Override
+	public List<MarketRate> getAllRates() 
+	{
+		return marketRateDao.findAll();
+	}
+
+	@Override
+	public String addRate(MarketRate obj) {
+		// TODO Auto-generated method stub
+		marketRateDao.save(obj);
+		return "Added Successfullly...";
+	}
+
+	@Override
+	public String deleteRate(Long id) {
+
+		if(marketRateDao.existsById(id))
+		{
+				marketRateDao.deleteById(id);
+				return "Deleted...";
+		}
+		return ;
+	}
+	
+	
+	
+	
+
+}

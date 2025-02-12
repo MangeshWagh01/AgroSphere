@@ -1,0 +1,106 @@
+package com.app.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.app.dao.UserEntityDao;
+import com.app.dto.FarmerListDto;
+import com.app.dto.Signup;
+import com.app.entities.UsersEntity;
+
+
+@Service
+@Transactional
+public class UserServiceImpl implements UsersService {
+	//dep : dao layer i/f
+	@Autowired
+	private UserEntityDao userDao;
+	
+	@Autowired
+	private com.app.dto.modelMapper.ModelMapper modelMapper;
+	
+	//dep
+	@Autowired
+	private ModelMapper mapper;
+	//dep 
+	@Autowired
+	private PasswordEncoder encoder;
+
+	@Override
+	public Signup userRegistration(Signup reqDTO) {
+		//dto --> entity
+		UsersEntity user=mapper.map(reqDTO, UsersEntity.class);
+		user.setPassword(encoder.encode(user.getPassword()));//pwd : encrypted using SHA
+		return mapper.map(userDao.save(user), Signup.class);
+	}
+	
+	
+	@Override
+	public List<FarmerListDto> getUsers() {
+		
+		List<UsersEntity> list=userDao.findAll();
+		List<FarmerListDto> list2 = new ArrayList<>();
+		for(UsersEntity i:list) {
+			list2.add((modelMapper.UserEntityToFarmerDto(i)));
+		}
+		
+		return list2;
+	}
+
+	@Override
+	public String updateUser(UsersEntity obj, Long id) {
+		
+		if(userDao.existsById(id))
+		{
+			UsersEntity user=userDao.findById(id).get();
+
+			
+			//UserEntity user1=mapper.map(obj, UserEntity.class);
+			//System.out.println(user.se);
+			
+			user.setPassword(encoder.encode(obj.getPassword()));//pwd : encrypted using SHA
+			user.setAddress(obj.getAddress());
+			user.setEmail(obj.getEmail());
+			user.setFirstName(obj.getFirstName());
+			user.setLastName(obj.getLastName());
+			user.setRole(obj.getRole());
+			user.setContactNo(obj.getContactNo());
+
+
+
+			System.out.println(user.getPassword());
+			mapper.map(userDao.save(user), UsersEntity.class);
+
+			//userDao.save(obj);
+			System.out.println("in service "+ obj);
+			return "Updated Sccessfully...";
+			
+		}
+		
+		return "Id NOT FOUND" ;
+	}
+
+	
+	@Override
+	public String deleteUser(Long id) {
+
+			if(userDao.existsById(id))
+			{
+				userDao.deleteById(id);
+			   return "Deleted Succesfully...";
+			}
+		return "User Not Found";
+	}
+	
+	@Override
+	public UsersEntity getUsers(Long id) {
+		return userDao.findById(id).orElseThrow();
+	}
+
+}

@@ -1,0 +1,29 @@
+package com.app.dto;
+
+import java.time.LocalDate;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+
+
+public class FarmerListDto 
+{
+
+	
+	private String firstName;
+	private String lastName;
+	private String email;
+	private String address;
+	private String contactNo;	
+	private String role;
+	private LocalDate created_on;
+	private  LocalDate updated_on;
+	
+}

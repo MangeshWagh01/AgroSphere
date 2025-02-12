@@ -1,0 +1,21 @@
+package com.app.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
+public class AppointmentDto {
+	 private String status;
+	    private Long appointmentId;
+
+	    // Constructor with parameters (for deserialization)
+	    @JsonCreator
+	    public AppointmentDto(@JsonProperty("status") String status, @JsonProperty("appointmentId") Long appointmentId) {
+	        this.status = status;
+	        this.appointmentId = appointmentId;
+	    }
+
+}

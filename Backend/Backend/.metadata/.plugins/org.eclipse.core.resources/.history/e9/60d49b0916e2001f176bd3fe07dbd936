@@ -1,0 +1,31 @@
+package com.app.service;
+
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
+
+import com.app.dao.MarketDao;
+import com.app.entities.Market;
+
+
+@Service
+@Transactional
+
+public class MarketServiceImpl implements MarketService
+{
+	
+	@Autowired
+	MarketDao marketDao;
+
+	@Override
+	public List<Market> getAllMarket() {
+
+		return marketDao.findAll();
+	}
+
+
+}

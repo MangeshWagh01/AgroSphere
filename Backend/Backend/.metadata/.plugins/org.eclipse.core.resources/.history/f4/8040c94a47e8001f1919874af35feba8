@@ -1,0 +1,100 @@
+package com.app.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.app.dao.UserEntityDao;
+import com.app.dto.FarmerListDto;
+import com.app.dto.Signup;
+import com.app.entities.UserEntity;
+
+
+@Service
+@Transactional
+public class UserServiceImpl implements UserService {
+	//dep : dao layer i/f
+	@Autowired
+	private UserEntityDao userDao;
+	
+	@Autowired
+	private com.app.dto.modelMapper.ModelMapper modelMapper;
+	
+	//dep
+	@Autowired
+	private ModelMapper mapper;
+	//dep 
+	@Autowired
+	private PasswordEncoder encoder;
+
+	@Override
+	public Signup userRegistration(Signup reqDTO) {
+		//dto --> entity
+		UserEntity user=mapper.map(reqDTO, UserEntity.class);
+		user.setPassword(encoder.encode(user.getPassword()));//pwd : encrypted using SHA
+		return mapper.map(userDao.save(user), Signup.class);
+	}
+	
+	
+	@Override
+	public List<FarmerListDto> getUsers() {
+		
+		List<UserEntity> list=userDao.findAll();
+		List<FarmerListDto> list2 = new ArrayList<>();
+		for(UserEntity i:list) {
+			list2.add((modelMapper.UserEntityToFarmerDto(i)));
+		}
+		
+		return list2;
+	}
+
+	@Override
+	public String updateUser(Long id, UserEntity obj) {
+	    if (userDao.existsById(id)) {
+	        UserEntity user = userDao.findById(id).get();
+
+	        // If the password is provided in the request, encode it. Otherwise, keep the old password.
+	        if (obj.getPassword() != null && !obj.getPassword().isEmpty()) {
+	            user.setPassword(encoder.encode(obj.getPassword())); // Encrypt the new password
+	        }
+	        
+	        // Update other fields
+	        user.setAddress(obj.getAddress());
+	        user.setEmail(obj.getEmail());
+	        user.setFirstName(obj.getFirstName());
+	        user.setLastName(obj.getLastName());
+	        user.setRole(obj.getRole());
+	        user.setContactNo(obj.getContactNo());
+
+	        // Save the updated user entity
+	        userDao.save(user);
+
+	        return "Updated Successfully...";
+	    }
+
+	    return "Id NOT FOUND";
+	}
+
+	
+	@Override
+	public String deleteUser(Long id) {
+	    if (userDao.existsById(id)) {
+	        // Delete the user
+	        userDao.deleteById(id);
+	        return "User deleted successfully!";
+	    }
+	    // If user is not found
+	    return "User not found with ID: " + id;
+	}
+
+	@Override
+	public UserEntity getUsers(Long id) {
+		return userDao.findById(id).orElseThrow();
+	}
+
+}
