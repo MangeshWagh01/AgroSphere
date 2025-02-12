@@ -1,0 +1,162 @@
+/* Container for the page */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  padding-top: 120px; /* Ensure content doesn't overlap with the fixed header */
+  box-sizing: border-box;
+}
+
+/* Main form area */
+.form {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
+}
+
+/* Form title */
+.form h3 {
+  color: #343a40;
+  font-size: 24px;
+  margin-bottom: 1rem;
+}
+
+/* Status filter group */
+.form-group {
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Align left */
+}
+
+.form-group label {
+  font-weight: bold;
+  font-size: 16px;
+  margin-right: 10px; /* Add space between label and select */
+}
+
+.form-group select {
+  border-radius: 4px;
+  padding: 0.5rem;
+  font-size: 14px; /* Reduced font size */
+  width: 150px; /* Make the filter smaller */
+  border: 1px solid #ddd;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+/* Table Styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
+}
+
+th,
+td {
+  padding: 12px 15px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+th {
+  background-color: #007bff;
+  color: white;
+}
+
+td {
+  background-color: #f9f9f9;
+}
+
+/* Flex container for action buttons to display inline */
+.actions {
+  display: flex;
+  gap: 10px; /* Space between buttons */
+  justify-content: flex-start; /* Align buttons to the left */
+}
+
+/* Button Styling */
+button {
+  padding: 0.3rem 0.7rem; /* Reduced padding */
+  font-size: 12px; /* Smaller font size */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  white-space: nowrap; /* Prevent text from wrapping */
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+/* Accept Button (Green to Blue) */
+.btn-accept {
+  background-color: #28a745; /* Green color */
+  color: white;
+}
+
+.btn-accept:hover {
+  background-color: #218838; /* Darker green on hover */
+}
+
+/* Reject Button (Red to Orange) */
+.btn-reject {
+  background-color: #fd7e14; /* Orange color */
+  color: white;
+}
+
+.btn-reject:hover {
+  background-color: #e66a14; /* Darker orange on hover */
+}
+
+/* Delete Button (Blue) */
+.btn-delete {
+  background-color: #007bff; /* Blue color */
+  color: white;
+}
+
+.btn-delete:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* No Appointments Row */
+td[colspan="6"] {
+  text-align: center;
+  color: #888;
+  font-style: italic;
+}
+
+/* Shadow effect for the table */
+.shadow-lg {
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+}
+
+/* Media Query for Mobile Responsiveness */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+    padding-top: 90px; /* Adjust for smaller header heights on mobile */
+  }
+
+  table {
+    font-size: 14px;
+  }
+
+  th,
+  td {
+    padding: 10px;
+  }
+
+  button {
+    padding: 0.3rem 0.8rem;
+    font-size: 12px;
+  }
+
+  /* Ensure the select input fits well in smaller screens */
+  .form-group select {
+    width: 100%;
+    max-width: 100%; /* Allow full-width on smaller screens */
+  }
+}

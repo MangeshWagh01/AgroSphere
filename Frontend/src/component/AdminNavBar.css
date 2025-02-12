@@ -1,0 +1,52 @@
+/* AdminNavBar.css */
+.navbar-container {
+  background-color: #2c3e50; /* Deep Blue */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 60px; /* Adjust according to your header height */
+  z-index: 999;
+}
+
+.navbar {
+  background-color: #2c3e50; /* Deep Blue */
+  color: white;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.nav-link:hover,
+.active-link {
+  color: #18bc9c; /* Bright Accent Color */
+}
+
+.navbar-toggler {
+  border: none;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28%255, %255, %255, 1%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+@media (max-width: 992px) {
+  .navbar-collapse {
+    background-color: #2c3e50; /* Deep Blue */
+  }
+}
+
+.navbar-logo {
+  height: 40px; /* Adjust the height as needed */
+  margin-right: 10px; /* Space between logo and text */
+  border-radius: 10px;
+  vertical-align: middle; /* Aligns the logo vertically with text */
+}

@@ -1,0 +1,67 @@
+/* BuyerHomePage.css */
+.buyer-home-container {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  
+  .hero-section {
+    background-color: #8FD3F4; /* Fresh Teal */
+    color: white;
+    text-align: center;
+    padding: 80px 20px;
+    border-radius: 15px;
+    margin-bottom: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  }
+  
+  .hero-title {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+  }
+  
+  .section-title {
+    font-size: 2.5rem;
+    margin: 20px 0;
+    color: #2C3E50; /* Deep Blue */
+    text-align: center;
+  }
+  
+  .product-list, .market-rate-list {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .product-item, .market-rate-item {
+    flex: 1 0 30%;
+    background-color: #fff;
+    color: #2C3E50; /* Deep Blue */
+    margin: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .product-item:hover, .market-rate-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .product-item h3, .market-rate-item h3 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+  }
+  
+  .product-item p, .market-rate-item p {
+    font-size: 1rem;
+    margin: 0;
+    color: #2C3E50; /* Deep Blue */
+  }
+  

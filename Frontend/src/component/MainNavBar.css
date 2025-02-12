@@ -1,0 +1,54 @@
+/* MainNavBar.css */
+.navbar-container {
+  background-color: #2C3E50; /* Deep Blue */
+  color: white;
+  padding: 10px 0;
+  position: sticky;
+  top: 60px; /* Adjust the top value to match the height of your header */
+  width: 100%;
+  z-index: 999;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+}
+
+.navbar-links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-links li {
+  margin-left: 20px;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.nav-link:hover, .active-link {
+  color: #18BC9C; /* Bright Accent Color */
+}
+.navbar-logo {
+  height: 40px; /* Adjust the height as needed */
+  margin-right: 10px; /* Space between logo and text */
+  border-radius: 10px;
+  vertical-align: middle; /* Aligns the logo vertically with text */
+}
