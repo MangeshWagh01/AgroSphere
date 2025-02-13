@@ -34,10 +34,10 @@ AgroSphere is a platform that connects farmers and buyers, allowing farmers to b
 
 🗃️ Database Structure
 Tables:
-	market
-	market_rate 
-	appointment 
-	order
-	product
+	market,
+	market_rate, 
+	appointment, 
+	order,
+	product,
   users
 
