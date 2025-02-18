@@ -50,8 +50,9 @@ public class SecurityConfig {
 				"/v*/api-doc*/**","/swagger-ui/**").permitAll()
 		// only required for JS clnts (react / angular) : for the pre flight requests
 		.antMatchers(HttpMethod.OPTIONS).permitAll()
-		.antMatchers("/productsssss/purchase").hasRole("CUSTOMER")
-		.antMatchers("/productssssss/add123").hasRole("ADMIN")
+		.antMatchers("/appointment/add").hasRole("FARMER")
+		.antMatchers("/order/add").hasRole("BUYER")
+		.antMatchers("/users/delete/**" ,"rate/**" , "market/**" ).hasRole("ADMIN")
 		.anyRequest().authenticated()
 		.and()
 		//to tell spring sec : not to use HttpSession to store user's auth details
