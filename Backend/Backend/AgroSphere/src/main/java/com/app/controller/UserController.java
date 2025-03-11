@@ -44,19 +44,8 @@ public class UserController
 			return ResponseEntity.ok(users);
 			
 		}
-		
-		
-//		@PutMapping("/edit/{id}")
-//		public ResponseEntity<?> updateUsers(@RequestBody @Valid Signup dto, @PathVariable Long id)	
-//		{
-//			//return ResponseEntity.status(HttpStatus.CREATED).body(userService.userRegistration(dto));
-//
-//			return ResponseEntity.status(HttpStatus.ACCEPTED).body(userService.updateUser(dto, id));
-//			
-//		}
-		
-		
-		
+
+	
 		@PutMapping("/edit/{id}")
 		public ResponseEntity<?> updateUsers(@PathVariable Long id,@RequestBody UserEntity obj) {
 		    System.out.println(obj);
@@ -80,28 +69,4 @@ public class UserController
 		        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found with id: " + id);  // Return error message if user is not found
 		    }
 		}
-
-//		 // Forgot password request
-//	    @PostMapping("/forgot-password")
-//	    public ResponseEntity<String> forgotPassword(@RequestBody String email) {
-//	        boolean success = userService.requestPasswordReset(email);
-//	        if (success) {
-//	            return ResponseEntity.ok("Password reset link sent to your email.");
-//	        } else {
-//	            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-//	                                 .body("User not found with email: " + email);
-//	        }
-//	    }
-//
-//	    // Reset password (by token and new password)
-//	    @PostMapping("/reset-password")
-//	    public ResponseEntity<String> resetPassword(@RequestParam String token, @RequestParam String newPassword) {
-//	        boolean success = userService.resetPassword(token, newPassword);
-//	        if (success) {
-//	            return ResponseEntity.ok("Password has been reset successfully.");
-//	        } else {
-//	            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-//	                                 .body("Invalid or expired token.");
-//	        }
-//	    }
 }
